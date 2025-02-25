@@ -5,8 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 class AdalineGD(object):
-    """ Classificador ADAptive LInear NEuron
-    
+    """
     Parameters
     --------------
     eta: float
@@ -30,19 +29,15 @@ class AdalineGD(object):
         self.random_state = random_state
     
     def fit(self, X, y):
-        """ Ajustar os dados de treinamento 
+        """ 
+        Ajustar os dados de treinamento 
         
-        Parameters
-        -------------
+
         X : {array-like}, shape = [n_samples, n_features]
             Vetores de treinamento, onde n_samples = número de amostras e n_features = número de características
             
         y : array-like, shape = [n_samples]
             Valores alvo
-            
-        Returns
-        -----------
-        self: object
         """
         
         rgen = np.random.RandomState(self.random_state)
@@ -61,22 +56,21 @@ class AdalineGD(object):
         return self
     
     def net_input(self, X):
-        """Calcular a entrada líquida"""
+        """Calcular a entrada líquida, retorna um array de valores que representa a entrada líquida para cada amostra."""
         return np.dot(X, self.w_[1:]) + self.w_[0]
     
     def activation(self, X):
-        """Calcular a ativação linear"""
+        """Calcular a ativação linear, retorno o mesmo array de entrada"""
         return X
     
     def predict(self, X):
-        """Retornar o rótulo da classe após o passo unitário"""
+        """Retornar o rótulo da classe após o passo unitário, retorna um array de rótulos de classe (1 ou -1) para cada amostra"""
         return np.where(self.activation(self.net_input(X)) >= 0.0, 1, -1)
 
-# Carregar o arquivo Excel
-df = pd.read_excel('C:/REPOS/Pessoais/aulas-ml/Basedados_B2.xlsx')
-print(df.head())  # Verificar se o DataFrame foi carregado corretamente
 
-# Extrair rótulos e características
+df = pd.read_excel('C:/REPOS/Pessoais/aulas-ml/Basedados_B2.xlsx')
+print(df.head())  
+
 y = df['t'].values
 X = df[['s1', 's2']].values
 
